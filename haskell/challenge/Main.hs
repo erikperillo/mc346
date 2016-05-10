@@ -1,7 +1,13 @@
---main routine for haskell challenge.
+-- Reads rectangles and outputs them
 
 import System.IO
 
-main :: IO()
-main = 
-    putStrLn "hello world"
+process :: [String] -> String
+process = unlines . map ("linha: " ++)
+
+-- | 'main' runs the main program
+main :: IO ()
+main = do
+  contents <- getContents
+  putStrLn $ process $ lines contents
+

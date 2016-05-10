@@ -1,11 +1,9 @@
 module Rect
 (
-    Rect,
+    Rect(..),
     area,
-    minX,
-    maxX,
-    minY,
-    maxY
+    width,
+    height
 )
 where
 
@@ -17,29 +15,21 @@ where
 data Rect = 
     Rect 
     {
-        x :: Int, 
-        y :: Int,
-        w :: Int,
-        h :: Int
+        minX :: Int, 
+        maxX :: Int,
+        minY :: Int,
+        maxY :: Int
     }
     deriving(Show)
 
+--returns the width of a certain rectangle.
+width :: Rect -> Int
+width rect = (maxX rect) - (minX rect)
+
+--returns the height of a certain rectangle.
+height :: Rect -> Int
+height rect = (maxY rect) - (minY rect)
+
 --returns the area of a certain rectangle.
 area :: Rect -> Int
-area rect = (w rect) * (h rect)
-
---returns minimum x point of rectangle
-minX :: Rect -> Int
-minX = x
-
---returns maximum x point of rectangle
-maxX :: Rect -> Int
-maxX rect = x rect + w rect
-
---returns minimum y point of rectangle
-minY :: Rect -> Int
-minY = y
-
---returns maximum y point of rectangle
-maxY :: Rect -> Int
-maxY rect = y rect + h rect
+area rect = (width rect) * (height rect)

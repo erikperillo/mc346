@@ -2,7 +2,8 @@ module RectCompat
 (
     compatible,
     compatibleWithGroup,
-    compatibleGroupWith
+    compatibleGroupWith,
+    compatibleGroups
 )
 where
 

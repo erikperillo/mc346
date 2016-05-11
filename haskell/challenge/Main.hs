@@ -2,27 +2,36 @@ import System.IO
 import Rect
 import RectCompat
 import RectGroup
+import IntsFromString(intsListFromString)
+import Data.List(sortBy)
 
-wordsListFromLines :: [String] -> [[String]]
-wordsListFromLines lines = filter (not . null) $ map words lines
+--preprocessing area: all these functions filter input and transform it into 
+--relevant data.
+--gets a list of lists of ints and removes the head from each list
+cutHeads :: [[Int]] -> [[Int]]
+cutHeads ints = map tail ints
 
-wordsListFromString :: String -> [[String]]
-wordsListFromString string = wordsListFromLines . lines $ string
+--gets a rect from a list of 4 ints
+rectFromInts :: [Int] -> Rect
+rectFromInts [xmin,xmax,ymin,ymax] = Rect xmin xmax ymin ymax
 
-intsFromWords :: [String] -> [Int]
-intsFromWords wordsList = map (read :: String -> Int) wordsList
+--gets a list of rects from a list of lists of ints
+rectsFromInts :: [[Int]] -> [Rect]
+rectsFromInts ints = 
+    map rectFromInts $ filter (not . null) ints
 
-intsListFromWordsList :: [[String]] -> [[Int]]
-intsListFromWordsList wordsList = map intsFromWords wordsList
+--final preprocessing of input
+preProcess :: String -> [Rect]
+preProcess str = rectsFromInts . cutHeads . intsListFromString $ str
 
---preProcess :: String -> [[Int]]
---preProcess contents = 
- --   intsListFromWordsList . wordsListFromString $ contents
-preProcess :: String -> String
-preProcess str = "hue"
+--gets desired answer from pre-processed string
+getAnswer :: [Rect] -> Int
+getAnswer rects = fst . maxGroupArea . compatibleGroups $ rects
 
 -- | 'main' runs the main program
 main :: IO ()
 main = do
     contents <- getContents
-    putStrLn $ show $ preProcess contents
+    let rects = preProcess contents in
+        putStr $ show $ getAnswer rects
+    putStrLn ";"

@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{k+kn}{import} \PYG{n+nn}{math}
+
+	\PYG{k}{def} \PYG{n+nf}{hue}\PYG{p}{():}
+		\PYG{k}{print} \PYG{l+s+s2}{\PYGZdq{}ey b0ss\PYGZdq{}}
+		\PYG{k}{return} \PYG{l+m+mi}{3}
+\end{Verbatim}
